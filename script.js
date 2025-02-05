@@ -32,7 +32,7 @@ function handleYesClick() {
     emailjs.init("aPyJn3SHE-5FlvN0I");
 })();
 
-document.getElementById("yesButton").addEventListener("click", function() {
+document.getElementById("yes-button").addEventListener("click", function() {
     emailjs.send("service_gmf6mta", "template_0ycunxt", {
         message: "A user clicked YES!"
     }).then(
