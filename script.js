@@ -18,31 +18,41 @@ function handleNoClick() {
     const noButton = document.querySelector('.no-button');
     const yesButton = document.querySelector('.yes-button');
 
+    // Change NO button text
     noButton.textContent = messages[messageIndex];
     messageIndex = (messageIndex + 1) % messages.length;
 
+    // Increase YES button size
     const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
     yesButton.style.fontSize = `${currentSize * 1.5}px`;
 }
 
 function handleYesClick() {
-    // Send email using EmailJS
-    emailjs.send("service_gmf6mta", "template_0ycunxt", {
-        message: "A user clicked YES!"
-    }).then(
-        response => {
-            console.log("Email Sent Successfully!");
-            // Redirect after email is sent
-            window.location.href = "yes_page.html";
-        },
-        error => console.error("Error Sending Email:", error.text)
-    );
+    if (typeof emailjs !== "undefined") {
+        emailjs.send("service_gmf6mta", "template_0ycunxt", {
+            message: "A user clicked YES!"
+        }).then(
+            response => {
+                console.log("Email Sent Successfully!");
+                window.location.href = "yes_page.html"; // Redirect after success
+            },
+            error => console.error("Error Sending Email:", error.text)
+        );
+    } else {
+        console.error("EmailJS is not loaded. Cannot send email.");
+    }
 }
 
-// Initialize EmailJS
+// Wait until the page fully loads before executing JavaScript
 document.addEventListener("DOMContentLoaded", function () {
-    emailjs.init("aPyJn3SHE-5FlvN0I");
+    // Initialize EmailJS
+    if (typeof emailjs !== "undefined") {
+        emailjs.init("aPyJn3SHE-5FlvN0I"); // Replace with your EmailJS public key
+    } else {
+        console.error("EmailJS failed to load. Check script inclusion.");
+    }
 
-    // Correctly add event listener to Yes button
+    // Attach event listeners to buttons
     document.querySelector(".yes-button").addEventListener("click", handleYesClick);
+    document.querySelector(".no-button").addEventListener("click", handleNoClick);
 });
