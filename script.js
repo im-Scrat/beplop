@@ -17,26 +17,32 @@ let messageIndex = 0;
 function handleNoClick() {
     const noButton = document.querySelector('.no-button');
     const yesButton = document.querySelector('.yes-button');
+
     noButton.textContent = messages[messageIndex];
     messageIndex = (messageIndex + 1) % messages.length;
+
     const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
     yesButton.style.fontSize = `${currentSize * 1.5}px`;
 }
 
 function handleYesClick() {
-    window.location.href = "yes_page.html";
-}
-
-
-(function() {
-    emailjs.init("aPyJn3SHE-5FlvN0I");
-})();
-
-document.getElementById("yes-button").addEventListener("click", function() {
+    // Send email using EmailJS
     emailjs.send("service_gmf6mta", "template_0ycunxt", {
         message: "A user clicked YES!"
     }).then(
-        response => console.log("Email Sent Successfully!"),
+        response => {
+            console.log("Email Sent Successfully!");
+            // Redirect after email is sent
+            window.location.href = "yes_page.html";
+        },
         error => console.error("Error Sending Email:", error.text)
     );
+}
+
+// Initialize EmailJS
+document.addEventListener("DOMContentLoaded", function () {
+    emailjs.init("aPyJn3SHE-5FlvN0I");
+
+    // Correctly add event listener to Yes button
+    document.querySelector(".yes-button").addEventListener("click", handleYesClick);
 });
