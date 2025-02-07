@@ -4,21 +4,62 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f9e3e3;
-    font-family: 'Arial', sans-serif;
+    background: linear-gradient(45deg, #ff8c94, #ffaaa5, #ffd3b6);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    animation: bgYes 5s infinite alternate;
+    text-align: center;
+    overflow: hidden; /* Prevent scrolling */
+    flex-direction: column;
+}
+
+@keyframes bgYes {
+    0% { background: #ff8c94; }
+    50% { background: #ffaaa5; }
+    100% { background: #ffd3b6; }
 }
 
 .container {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 100%;
 }
 
 .header_text {
-    font-size: 3em;
-    color: #d32f2f;
+    font-size: 2em;
+    color: #fff;
+    text-shadow: 2px 2px #ff0066;
+    animation: bounce 1s infinite alternate;
+    margin-bottom: 10px;
+    max-width: 90%;
 }
 
-.gif_container img {
-    width: 100%; 
-    max-width: 500px; 
-    height: auto; 
+@keyframes bounce {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+.gif-container {
+    width: 50%;
+    max-width: 300px;
+}
+
+.gif-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #ff0066;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .header_text {
+        font-size: 1.8em; /* Reduce text size on small screens */
+    }
+
+    .gif-container {
+        width: 70%; /* Adjust GIF size for mobile */
+    }
 }
