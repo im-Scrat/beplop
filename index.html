@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Valentine?</title>
+    <title>Hi beps💖</title>
     <link rel="stylesheet" href="styles.css">
-    
-    <!-- EmailJS SDK (Load BEFORE script.js) -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    
-    <!-- Defer loading script.js to ensure EmailJS is loaded first -->
-    <script defer src="script.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>Will you be my Valentine?</h1>
+        <h1 class="valentine-title">Will you be my Valentine?🥺🫶🏻💖</h1>
         <div class="buttons">
-            <button class="yes-button">Yes</button>
-            <button class="no-button">No</button>
+            <button class="yes-button" onclick="handleYesClick()">Yes 💘</button>
+            <button class="no-button" onclick="handleNoClick()">No 😢</button>
         </div>
+        <div class="hearts-container"></div>
     </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
