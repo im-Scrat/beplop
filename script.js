@@ -17,20 +17,25 @@ function handleNoClick() {
     const noButton = document.querySelector('.no-button');
     const yesButton = document.querySelector('.yes-button');
 
-    if (noClicks < messages.length) {
-        noButton.textContent = messages[messageIndex];
-        messageIndex = (messageIndex + 1) % messages.length;
-        noClicks++;
-    }
+    // Change NO button text
+    noButton.textContent = messages[messageIndex];
+    messageIndex = (messageIndex + 1) % messages.length;
 
-    yesButton.style.fontSize = `${parseFloat(window.getComputedStyle(yesButton).fontSize) * 1.3}px`;
+    // Make YES button grow
+    let currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+    yesButton.style.fontSize = `${currentSize * 1.3}px`;
 
+    // Reduce NO button opacity gradually
+    noClicks++;
+    noButton.style.opacity = `${1 - noClicks * 0.1}`; // Fades out
+    noButton.style.transform = `scale(${1 - noClicks * 0.1})`; // Shrinks
+
+    // Make NO button move randomly
     noButton.style.position = 'absolute';
     noButton.style.left = `${Math.random() * 80 + 10}%`;
     noButton.style.top = `${Math.random() * 80 + 10}%`;
 
-    // Make NO button disappear gradually
-    noButton.style.opacity = `${1 - noClicks * 0.1}`;
+    // When NO button fades out completely, remove it
     if (noClicks >= 10) {
         noButton.style.display = 'none';
     }
@@ -52,7 +57,7 @@ function handleYesClick() {
     }
 }
 
-// Floating hearts animation
+// Floating heart animation
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -66,11 +71,13 @@ function createHeart() {
     }, 3000);
 }
 
+// Generate hearts over time
 setInterval(createHeart, 500);
 
 document.addEventListener("DOMContentLoaded", function () {
+    // Initialize EmailJS
     if (typeof emailjs !== "undefined") {
-        emailjs.init("aPyJn3SHE-5FlvN0I");
+        emailjs.init("aPyJn3SHE-5FlvN0I"); 
     } else {
         console.error("EmailJS failed to load. Check script inclusion.");
     }
